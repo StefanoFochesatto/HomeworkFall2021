@@ -1,0 +1,22 @@
+G =[0 0 1 0 0;
+    1 0 1 1 0;
+    1 1 0 0 1;
+    1 0 0 0 0;
+    0 0 0 1 0];
+
+%Compute the columns sums
+c = sum(G, 1);
+%Repeat column sum so we can entrywise
+%divide to compute A
+C = repmat(c1,5, 1);
+%Set p and sigma
+p = .85;
+sigma = (1 - p)/length(c);
+%Compute A
+A = (p.*G)./C + sigma;
+
+%Compute Eigenvalues and Eigenvectors of A
+[V, D] = eig(A);
+[M,I] = max(diag(D));
+PageRank = V(:,I)/sum(V(:,I));
+
